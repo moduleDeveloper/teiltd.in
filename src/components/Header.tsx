@@ -213,7 +213,11 @@ const Header = () => {
               </a>
             ))}
             <div className="pt-2 border-t border-border">
-              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3">Modules</div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gradient-gold text-gold-foreground">We Build</span>
+                <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Services & Modules</div>
+              </div>
+              <p className="text-xs text-muted-foreground mb-3">Features we deliver inside your custom app & automation.</p>
               <div className="grid gap-4">
                 {moduleCategories.map((cat) => (
                   <div key={cat.title}>

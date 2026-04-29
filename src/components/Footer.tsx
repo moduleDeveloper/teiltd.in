@@ -28,11 +28,10 @@ const Footer = () => {
           <div>
             <h4 className="font-display text-lg mb-4 text-gold">Explore</h4>
             <ul className="space-y-2 text-sm text-primary-foreground/70">
-              <li><a href="#services" className="hover:text-gold transition-colors">Services</a></li>
-              <li><a href="#platform" className="hover:text-gold transition-colors">Multi-Trust Platform</a></li>
+              <li><a href="#home" className="hover:text-gold transition-colors">Home</a></li>
               <li><a href="#proof" className="hover:text-gold transition-colors">Live Trusts</a></li>
-              <li><a href="#modules" className="hover:text-gold transition-colors">Modules</a></li>
               <li><a href="#contact" className="hover:text-gold transition-colors">Book Demo</a></li>
+              <li><a href="https://test-admin-panel-9s7o.vercel.app/login" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors">Admin Login</a></li>
             </ul>
           </div>
 

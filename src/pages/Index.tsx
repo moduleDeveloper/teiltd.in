@@ -1,13 +1,7 @@
 import { useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import ProblemSolution from "@/components/ProblemSolution";
-import Services from "@/components/Services";
-import Platform from "@/components/Platform";
 import Proof from "@/components/Proof";
-import ModulesWorking from "@/components/ModulesWorking";
-import Audience from "@/components/Audience";
-import Pricing from "@/components/Pricing";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -72,13 +66,7 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
-        <ProblemSolution />
-        <Services />
-        <Platform />
         <Proof />
-        <ModulesWorking />
-        <Audience />
-        <Pricing />
         <Contact />
       </main>
       <Footer />

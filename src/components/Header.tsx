@@ -110,31 +110,59 @@ const Header = () => {
 
             {/* Mega dropdown */}
             <div
-              className={`fixed left-1/2 -translate-x-1/2 top-20 w-[min(92vw,980px)] origin-top transition-all duration-300 ${
+              className={`fixed left-1/2 -translate-x-1/2 top-20 w-[min(94vw,1040px)] origin-top transition-all duration-300 ${
                 megaOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
               }`}
               onMouseEnter={openMega}
               onMouseLeave={scheduleClose}
             >
-              <div className="mt-3 rounded-3xl bg-background/95 backdrop-blur-xl border border-border shadow-elegant p-6 grid grid-cols-2 lg:grid-cols-4 gap-5">
-                {moduleCategories.map((cat) => (
-                  <div key={cat.title} className="relative rounded-2xl p-4 overflow-hidden border border-border/60 hover:border-gold/50 transition-all duration-500 hover:-translate-y-1 hover:shadow-card group">
-                    <div className={`absolute -top-12 -right-12 w-32 h-32 rounded-full bg-gradient-to-br ${cat.tint} blur-2xl opacity-80`} />
-                    <h4 className="relative font-display text-sm font-bold text-primary uppercase tracking-wider mb-3">
-                      {cat.title}
-                    </h4>
-                    <ul className="relative space-y-2.5">
-                      {cat.items.map((it) => (
-                        <li key={it.name} className="group/item">
-                          <div className="text-sm font-semibold text-foreground group-hover/item:text-gold transition-colors">
-                            {it.name}
-                          </div>
-                          <div className="text-xs text-muted-foreground leading-snug">{it.desc}</div>
-                        </li>
-                      ))}
-                    </ul>
+              <div className="mt-3 rounded-3xl bg-gradient-primary border border-gold/30 shadow-elegant p-6 relative overflow-hidden">
+                {/* Decorative glow */}
+                <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-gold/20 blur-3xl pointer-events-none" />
+                <div className="absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-primary-glow/40 blur-3xl pointer-events-none" />
+
+                {/* Context banner */}
+                <div className="relative mb-5 flex items-start gap-3 rounded-2xl bg-background/10 backdrop-blur border border-gold/30 p-4">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-gold flex items-center justify-center text-gold-foreground font-bold shrink-0 shadow-gold">
+                    ✦
                   </div>
-                ))}
+                  <div>
+                    <div className="text-xs uppercase tracking-[0.2em] text-gold font-semibold">What TEI Builds For You</div>
+                    <p className="text-sm text-primary-foreground/90 leading-snug mt-0.5">
+                      These are the <span className="text-gold font-semibold">services & features we deliver</span> inside your custom app, website & automation — pick what your trust / NGO / hospital needs.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-4">
+                  {moduleCategories.map((cat) => (
+                    <div key={cat.title} className="relative rounded-2xl p-4 overflow-hidden border border-gold/20 bg-background/10 backdrop-blur-sm hover:border-gold/60 hover:bg-background/15 transition-all duration-500 hover:-translate-y-1 hover:shadow-gold group">
+                      <div className={`absolute -top-12 -right-12 w-32 h-32 rounded-full bg-gradient-to-br ${cat.tint} blur-2xl opacity-90`} />
+                      <h4 className="relative font-display text-sm font-bold text-gold uppercase tracking-wider mb-3">
+                        {cat.title}
+                      </h4>
+                      <ul className="relative space-y-2.5">
+                        {cat.items.map((it) => (
+                          <li key={it.name} className="group/item">
+                            <div className="text-sm font-semibold text-primary-foreground group-hover/item:text-gold transition-colors">
+                              {it.name}
+                            </div>
+                            <div className="text-xs text-primary-foreground/70 leading-snug">{it.desc}</div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="relative mt-5 flex items-center justify-between gap-4 pt-4 border-t border-gold/20">
+                  <div className="text-xs text-primary-foreground/70">
+                    Mix & match modules — we build, host & maintain everything for you.
+                  </div>
+                  <a href="#contact" className="text-xs font-semibold text-gold hover:text-primary-foreground transition-colors whitespace-nowrap">
+                    Talk to us →
+                  </a>
+                </div>
               </div>
             </div>
           </div>

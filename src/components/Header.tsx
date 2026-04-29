@@ -100,11 +100,12 @@ const Header = () => {
             onMouseLeave={scheduleClose}
           >
             <button
-              className="inline-flex items-center gap-1 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
               onClick={() => setMegaOpen((v) => !v)}
               aria-expanded={megaOpen}
             >
-              Modules
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gradient-gold text-gold-foreground shadow-gold">We Build</span>
+              Services & Modules
               <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${megaOpen ? "rotate-180" : ""}`} />
             </button>
 

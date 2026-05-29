@@ -10,18 +10,18 @@ const services = [
   },
   {
     icon: PhoneCall,
-    t: "AI Voice Agents",
-    d: "Hindi-speaking AI agent like 'Pooja' for renewal calls, reminders, event invites, OPD reminders and member onboarding.",
+    t: "Voice Reminder Assistant",
+    d: "Hindi voice calling support for renewals, reminders and event communication.",
   },
   {
     icon: MessageCircle,
-    t: "WhatsApp Automation",
-    d: "Automated member communication, enquiry handling, reminders and campaign follow-ups at scale.",
+    t: "WhatsApp Member Updates",
+    d: "Secure member communication for notices, onboarding, reminders and support.",
   },
   {
     icon: Megaphone,
-    t: "Digital Marketing",
-    d: "Social media, lead generation, creative campaigns and growth support for trusts, NGOs and businesses.",
+    t: "Sponsor Visibility",
+    d: "Premium sponsor placements for trusted community businesses.",
   },
   {
     icon: Crown,

@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import AboutCompany from "@/components/AboutCompany";
 import Proof from "@/components/Proof";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 const Index = () => {
   useEffect(() => {
-    document.title = "TEI — AI & Digital Platforms for Trusts, NGOs & HNI Communities";
+    document.title = "SETU by Thermal Engineers & Insulators Pvt. Ltd. | Digital Platform for Trusts & NGOs";
 
     const setMeta = (name: string, content: string, attr: "name" | "property" = "name") => {
       let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
@@ -21,11 +22,11 @@ const Index = () => {
 
     setMeta(
       "description",
-      "TEI builds branded mobile apps, AI voice agents, WhatsApp automation & digital platforms for NGOs, hospitals, trusts, gaushalas & HNI communities in Delhi, India."
+      "SETU builds premium digital community platforms, member communication workflows and sponsor engagement tools for trusts, NGOs, hospitals, gaushalas and HNI communities in Delhi, India."
     );
-    setMeta("keywords", "AI solutions Delhi, mobile app for NGOs, trust management app India, hospital patron membership app, NGO digital platform India, HNI community app, WhatsApp automation Delhi, AI voice agent India, donation management app, sponsor management platform, white label mobile app for trusts");
-    setMeta("og:title", "TEI — Premium Digital Platforms for Trusts & HNI Communities", "property");
-    setMeta("og:description", "Branded apps, AI voice agents & WhatsApp automation for NGOs, hospitals, samitis & gaushalas. Live in 2 weeks.", "property");
+    setMeta("keywords", "mobile app for NGOs, trust management app India, hospital patron membership app, NGO digital platform India, HNI community app, WhatsApp member updates Delhi, voice reminder assistant India, donation management app, sponsor visibility platform, white label mobile app for trusts");
+    setMeta("og:title", "SETU by Thermal Engineers & Insulators Pvt. Ltd. | Digital Platform for Trusts & NGOs", "property");
+    setMeta("og:description", "Premium digital platforms, member communication and sponsor engagement tools for NGOs, hospitals, samitis and gaushalas. Live in 2 weeks.", "property");
     setMeta("og:type", "website", "property");
 
     let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
@@ -45,7 +46,7 @@ const Index = () => {
       founder: { "@type": "Person", name: "Ankit Gupta" },
       address: { "@type": "PostalAddress", addressLocality: "North Delhi", addressCountry: "IN" },
       sameAs: [
-        "https://www.instagram.com/elitecommunity_hub/",
+        "https://www.instagram.com/setu.subscriber/",
         "https://www.facebook.com/profile.php?id=61588890179524",
         "https://www.youtube.com/@EliteCommunity_Hub",
       ],
@@ -66,6 +67,7 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
+        <AboutCompany />
         <Proof />
         <Contact />
       </main>

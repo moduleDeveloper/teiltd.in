@@ -4,7 +4,7 @@ import { Check } from "lucide-react";
 const tiers = [
   { t: "One-time Setup", d: "Branded app build, modules configuration, content setup, launch." },
   { t: "Annual Maintenance", d: "Updates, new features, member support and platform reliability." },
-  { t: "Add-Ons", d: "AI voice agent, WhatsApp automation, sponsor monetization, payments." },
+  { t: "Add-Ons", d: "Voice reminder assistant, WhatsApp member updates, sponsor visibility, payments." },
 ];
 
 const Pricing = () => {

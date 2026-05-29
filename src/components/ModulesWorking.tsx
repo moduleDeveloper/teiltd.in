@@ -9,8 +9,8 @@ const items = [
   ["Donations", "Members donate via UPI/Razorpay and see the causes they support."],
   ["Hospital OPD", "Doctors, timings, appointments and referrals — inside the app."],
   ["VIP Dashboard", "Patron/VIP members get premium digital identity, referrals and benefits."],
-  ["AI Voice Agent", "Hindi AI agent calls members for reminders, renewals and invites."],
-  ["WhatsApp Automation", "Automated follow-ups, greetings, campaigns and lead handling."],
+  ["Voice Reminder Assistant", "Hindi voice calling support for renewals, reminders and event communication."],
+  ["WhatsApp Member Updates", "Secure member communication for notices, onboarding, reminders and support."],
 ];
 
 const ModulesWorking = () => {

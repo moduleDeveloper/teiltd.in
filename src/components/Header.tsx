@@ -1,5 +1,6 @@
 import { Menu, X, LogIn, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import setuLogo from "@/assets/logo-setu.jpeg";
 
 const moduleCategories: { title: string; tint: string; items: { name: string; desc: string }[] }[] = [
   {
@@ -23,21 +24,21 @@ const moduleCategories: { title: string; tint: string; items: { name: string; de
     ],
   },
   {
-    title: "Growth & Money",
+    title: "Sponsors & Engagement",
     tint: "from-amber-500/15 to-amber-300/0",
     items: [
       { name: "Donations", desc: "UPI / Razorpay flows with donor recognition." },
       { name: "Sponsors & Ads", desc: "Gold/Silver/Platinum sponsor placements." },
-      { name: "Digital Marketing", desc: "Social, leads & creative campaigns." },
+      { name: "Sponsor Visibility", desc: "Premium sponsor placements for trusted community businesses." },
       { name: "Push Notifications", desc: "Reach every member instantly." },
     ],
   },
   {
-    title: "AI Automation",
+    title: "Communication & Automation",
     tint: "from-emerald-500/15 to-emerald-300/0",
     items: [
-      { name: "AI Voice Agent", desc: "Hindi AI agent for renewals & invites." },
-      { name: "WhatsApp Automation", desc: "Follow-ups, greetings & campaigns." },
+      { name: "Voice Reminder Assistant", desc: "Hindi voice calling support for renewals, reminders and event communication." },
+      { name: "WhatsApp Member Updates", desc: "Secure member communication for notices, onboarding, reminders and support." },
       { name: "Mobile OTP Login", desc: "Secure India-first member auth." },
       { name: "Admin Management", desc: "Modular feature flags per trust." },
     ],
@@ -45,6 +46,8 @@ const moduleCategories: { title: string; tint: string; items: { name: string; de
 ];
 
 const links = [
+  { href: "/", label: "Home" },
+  { href: "#about-company", label: "About" },
   { href: "#proof", label: "Live Trusts" },
   { href: "#contact", label: "Contact" },
 ];
@@ -81,13 +84,17 @@ const Header = () => {
     >
       <div className="container flex items-center justify-between h-20">
         <a href="#home" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center text-primary-foreground font-display text-lg shadow-elegant transition-transform group-hover:rotate-6 group-hover:scale-110">
-            T
+          <div className="w-[72px] h-[72px] rounded-xl bg-black ring-1 ring-gold/70 shadow-elegant overflow-hidden shrink-0">
+            <img
+              src={setuLogo}
+              alt="SETU logo"
+              className="w-full h-full object-cover scale-[1.22] brightness-125 contrast-125 saturate-110 transition-transform group-hover:scale-[1.28]"
+            />
           </div>
           <div className="leading-tight">
-            <div className="font-display font-bold text-lg text-primary">TEI</div>
-            <div className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground -mt-0.5">
-              Thermal Engineers
+            <div className="font-display font-bold text-2xl text-gold tracking-wide">SETU</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gold-soft/90">
+              Power connects AI
             </div>
           </div>
         </a>
@@ -104,7 +111,7 @@ const Header = () => {
               onClick={() => setMegaOpen((v) => !v)}
               aria-expanded={megaOpen}
             >
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gradient-gold text-gold-foreground shadow-gold">We Build</span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gradient-gold text-gold-foreground shadow-gold">Platform Features</span>
               Services & Modules
               <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${megaOpen ? "rotate-180" : ""}`} />
             </button>
@@ -117,27 +124,30 @@ const Header = () => {
               onMouseEnter={openMega}
               onMouseLeave={scheduleClose}
             >
-              <div className="mt-3 rounded-3xl bg-gradient-primary border border-gold/30 shadow-elegant p-6 relative overflow-hidden">
+              <div className="mt-3 rounded-3xl bg-[linear-gradient(145deg,hsl(220_28%_9%)_0%,hsl(220_34%_6%)_60%,hsl(220_38%_4%)_100%)] border border-gold/30 shadow-elegant p-6 relative overflow-hidden">
                 {/* Decorative glow */}
                 <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-gold/20 blur-3xl pointer-events-none" />
                 <div className="absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-primary-glow/40 blur-3xl pointer-events-none" />
 
                 {/* Context banner */}
-                <div className="relative mb-5 flex items-start gap-3 rounded-2xl bg-background/10 backdrop-blur border border-gold/30 p-4">
+                <div className="relative mb-5 flex items-start gap-3 rounded-2xl bg-white/[0.03] backdrop-blur border border-gold/30 p-4">
                   <div className="w-10 h-10 rounded-xl bg-gradient-gold flex items-center justify-center text-gold-foreground font-bold shrink-0 shadow-gold">
                     ✦
                   </div>
                   <div>
-                    <div className="text-xs uppercase tracking-[0.2em] text-gold font-semibold">What TEI Builds For You</div>
-                    <p className="text-sm text-primary-foreground/90 leading-snug mt-0.5">
-                      These are the <span className="text-gold font-semibold">services & features we deliver</span> inside your custom app, website & automation — pick what your trust / NGO / hospital needs.
+                    <div className="text-xs uppercase tracking-[0.2em] text-gold font-semibold">What SETU Offers Your Organization</div>
+                    <p className="text-sm text-white/85 leading-snug mt-0.5">
+                      These are the <span className="text-gold font-semibold">platform features and community tools</span> inside your custom digital ecosystem.
+                    </p>
+                    <p className="text-xs text-gold-soft font-semibold mt-2">
+                      Your trust. Your members. Your digital ecosystem.
                     </p>
                   </div>
                 </div>
 
                 <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-4">
                   {moduleCategories.map((cat) => (
-                    <div key={cat.title} className="relative rounded-2xl p-4 overflow-hidden border border-gold/20 bg-background/10 backdrop-blur-sm hover:border-gold/60 hover:bg-background/15 transition-all duration-500 hover:-translate-y-1 hover:shadow-gold group">
+                    <div key={cat.title} className="relative rounded-2xl p-4 overflow-hidden border border-gold/20 bg-white/[0.03] backdrop-blur-sm hover:border-gold/60 hover:bg-gold/[0.06] transition-all duration-500 hover:-translate-y-1 hover:shadow-gold group">
                       <div className={`absolute -top-12 -right-12 w-32 h-32 rounded-full bg-gradient-to-br ${cat.tint} blur-2xl opacity-90`} />
                       <h4 className="relative font-display text-sm font-bold text-gold uppercase tracking-wider mb-3">
                         {cat.title}
@@ -145,10 +155,10 @@ const Header = () => {
                       <ul className="relative space-y-2.5">
                         {cat.items.map((it) => (
                           <li key={it.name} className="group/item">
-                            <div className="text-sm font-semibold text-primary-foreground group-hover/item:text-gold transition-colors">
+                            <div className="text-sm font-semibold text-white group-hover/item:text-gold transition-colors">
                               {it.name}
                             </div>
-                            <div className="text-xs text-primary-foreground/70 leading-snug">{it.desc}</div>
+                            <div className="text-xs text-white/65 leading-snug">{it.desc}</div>
                           </li>
                         ))}
                       </ul>
@@ -157,10 +167,10 @@ const Header = () => {
                 </div>
 
                 <div className="relative mt-5 flex items-center justify-between gap-4 pt-4 border-t border-gold/20">
-                  <div className="text-xs text-primary-foreground/70">
-                    Mix & match modules — we build, host & maintain everything for you.
+                  <div className="text-xs text-white/70">
+                    Every organization gets a customized digital experience based on its community needs.
                   </div>
-                  <a href="#contact" className="text-xs font-semibold text-gold hover:text-primary-foreground transition-colors whitespace-nowrap">
+                  <a href="#contact" className="text-xs font-semibold text-gold hover:text-white transition-colors whitespace-nowrap">
                     Talk to us →
                   </a>
                 </div>
@@ -181,9 +191,7 @@ const Header = () => {
 
         <div className="flex items-center gap-3">
           <a
-            href="https://test-admin-panel-9s7o.vercel.app/login"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="https://test-admin-panel-eight.vercel.app"
             className="btn-shine inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-primary text-primary-foreground text-sm font-semibold shadow-elegant hover:shadow-gold transition-all duration-500 hover:-translate-y-0.5"
           >
             <LogIn className="w-4 h-4" />
@@ -214,10 +222,10 @@ const Header = () => {
             ))}
             <div className="pt-2 border-t border-border">
               <div className="flex items-center gap-2 mb-1">
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gradient-gold text-gold-foreground">We Build</span>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gradient-gold text-gold-foreground">Platform Features</span>
                 <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Services & Modules</div>
               </div>
-              <p className="text-xs text-muted-foreground mb-3">Features we deliver inside your custom app & automation.</p>
+              <p className="text-xs text-muted-foreground mb-3">Your trust. Your members. Your digital ecosystem.</p>
               <div className="grid gap-4">
                 {moduleCategories.map((cat) => (
                   <div key={cat.title}>

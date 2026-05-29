@@ -14,7 +14,7 @@ const modules = [
   "Member Directory","Noticeboard","Events","Gallery","Sponsors","Donations",
   "OPD Schedule","Doctor Directory","Appointment Booking","Referral System",
   "VIP/Patron Dashboard","Digital ID Card","Benefits Tracker","Push Notifications",
-  "AI Voice Calling","WhatsApp Automation","Trust Contact Page","Admin Management",
+  "Voice Reminder Assistant","WhatsApp Member Updates","Trust Contact Page","Admin Management",
 ];
 
 const Platform = () => {

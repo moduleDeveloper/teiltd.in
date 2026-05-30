@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type SyntheticEvent } from "react";
-import { ArrowRight, PlayCircle, Sparkles } from "lucide-react";
+import { ArrowRight, PlayCircle } from "lucide-react";
 
 const trustedPlatforms = [
   { name: "MAH-SETU", logo: "/proof/mah-logo.jpeg" },
@@ -36,11 +36,6 @@ const Hero = () => {
 
       <div className="container relative grid lg:grid-cols-2 gap-8 items-center">
         <div className="animate-fade-in-up">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold-soft border border-gold/30 text-gold-deep text-xs font-semibold uppercase tracking-wider mb-6">
-            <Sparkles className="w-3.5 h-3.5" />
-            Trusted by 5+ Live HNI Communities
-          </div>
-
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-[5.2rem] font-bold leading-[1.02] text-primary">
             Where Communities <span className="text-gradient-gold">Feel Connected</span>
           </h1>

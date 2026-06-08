@@ -29,18 +29,18 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="relative min-h-screen pt-24 pb-10 lg:pt-28 lg:pb-12 overflow-hidden bg-gradient-hero">
+    <section id="home" className="relative min-h-screen pt-24 pb-10 sm:pt-28 lg:pt-28 lg:pb-12 overflow-hidden bg-gradient-hero">
       {/* Decorative light */}
       <div className="absolute -top-20 -left-20 w-96 h-96 rounded-full bg-gold/20 blur-3xl animate-blob" />
       <div className="absolute top-40 -right-20 w-[28rem] h-[28rem] rounded-full bg-gold-deep/20 blur-3xl animate-blob" style={{ animationDelay: "4s" }} />
 
-      <div className="container relative grid lg:grid-cols-2 gap-8 items-center">
+      <div className="container relative grid gap-10 lg:grid-cols-2 lg:gap-8 items-center">
         <div className="animate-fade-in-up">
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-[5.2rem] font-bold leading-[1.02] text-primary">
+          <h1 className="max-w-[12ch] font-display text-[2.5rem] leading-[1.02] sm:text-5xl lg:text-6xl xl:text-[5.2rem] font-bold text-primary">
             Where Communities <span className="text-gradient-gold">Feel Connected</span>
           </h1>
 
-          <div className="mt-5 max-w-xl space-y-3 text-base lg:text-lg text-muted-foreground leading-relaxed">
+          <div className="mt-5 max-w-xl space-y-3 text-base sm:text-[1.05rem] lg:text-lg text-muted-foreground leading-relaxed">
             <p>
               SETU helps trusts, NGOs, hospitals and respected communities keep every member informed, connected and proud - through premium digital platforms, member communication and community engagement tools.
             </p>
@@ -49,17 +49,17 @@ const Hero = () => {
             </p>
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-4">
+          <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4">
             <a
               href="#contact"
-              className="btn-shine group inline-flex items-center gap-2 px-7 py-4 rounded-full bg-gradient-primary text-primary-foreground font-semibold shadow-elegant hover:shadow-gold transition-all duration-500 hover:-translate-y-1"
+              className="btn-shine group inline-flex w-full justify-center items-center gap-2 px-6 py-3.5 sm:w-auto sm:px-7 sm:py-4 rounded-full bg-gradient-primary text-primary-foreground font-semibold shadow-elegant hover:shadow-gold transition-all duration-500 hover:-translate-y-1"
             >
               Book a Demo
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
             <a
               href="#proof"
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-full border-2 border-gold/25 hover:border-gold bg-background/70 backdrop-blur text-foreground font-semibold transition-all duration-500 hover:-translate-y-1 hover:shadow-card"
+              className="inline-flex w-full justify-center items-center gap-2 px-6 py-3.5 sm:w-auto sm:px-7 sm:py-4 rounded-full border-2 border-gold/25 hover:border-gold bg-background/70 backdrop-blur text-foreground font-semibold transition-all duration-500 hover:-translate-y-1 hover:shadow-card text-center"
             >
               <PlayCircle className="w-5 h-5 text-gold" />
               See Live Trust Platforms
@@ -70,7 +70,7 @@ const Hero = () => {
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
               Trusted by live community platforms
             </p>
-            <div className="flex flex-wrap gap-x-6 gap-y-4">
+            <div className="flex flex-wrap gap-x-5 gap-y-4 sm:gap-x-6">
               {trustedPlatforms.map((platform) => (
                 <div key={platform.name} className="flex flex-col items-start gap-2">
                   <span className="text-sm font-semibold text-primary/80 hover:text-gold transition-colors">
@@ -90,16 +90,16 @@ const Hero = () => {
 
         {/* Media side */}
         <div
-          className={`relative mx-auto -mt-16 lg:-mt-24 ${
-            isLandscapeVideo ? "max-w-[560px] lg:max-w-[640px]" : "max-w-[385px] lg:max-w-[440px]"
+          className={`relative mx-auto w-full max-w-full sm:max-w-[30rem] lg:-mt-24 ${
+            isLandscapeVideo ? "lg:max-w-[640px]" : "lg:max-w-[440px]"
           }`}
         >
           <div
             className={`relative w-full bg-black/95 border border-gold/40 shadow-[0_18px_46px_hsl(43_74%_63%/.35)] p-2 max-h-[82vh] ${
-              isLandscapeVideo ? "aspect-[19/9.6] rounded-[1.8rem]" : "aspect-[9.6/19] rounded-[2.2rem]"
+              isLandscapeVideo ? "aspect-[19/9.6] rounded-[1.5rem] sm:rounded-[1.8rem]" : "aspect-[9.6/19] rounded-[1.8rem] sm:rounded-[2.2rem]"
             }`}
           >
-            <div className={`relative h-full w-full overflow-hidden bg-black ${isLandscapeVideo ? "rounded-[1.3rem]" : "rounded-[1.7rem]"}`}>
+            <div className={`relative h-full w-full overflow-hidden bg-black ${isLandscapeVideo ? "rounded-[1.1rem] sm:rounded-[1.3rem]" : "rounded-[1.4rem] sm:rounded-[1.7rem]"}`}>
               <video
                 ref={videoRef}
                 src="/setu2.mp4"

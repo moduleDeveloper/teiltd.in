@@ -31,17 +31,18 @@ app.get("/api/health", (_req, res) => {
 app.post("/api/book-demo", async (req, res) => {
   const { name, org, mobile, email } = req.body ?? {};
 
-  if (!name || !org || !mobile || !email) {
-    return res.status(400).json({ error: "All fields are required." });
+  if (!mobile) {
+    return res.status(400).json({ error: "Mobile number is required." });
   }
 
   const submittedAt = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+  const hasExtraDetails = Boolean(name || org || email);
   const text = [
-    "New Book Demo request",
-    `Name: ${name}`,
-    `Organization: ${org}`,
+    hasExtraDetails ? "Book Demo request updated with details" : "New quick Book Demo lead",
     `Mobile: ${mobile}`,
-    `Email: ${email}`,
+    `Name: ${name || "Not provided"}`,
+    `Organization: ${org || "Not provided"}`,
+    `Email: ${email || "Not provided"}`,
     `Submitted At (IST): ${submittedAt}`,
   ].join("\n");
 
@@ -49,15 +50,17 @@ app.post("/api/book-demo", async (req, res) => {
     await transporter.sendMail({
       from: `"SETU Website" <${process.env.MAIL_USER}>`,
       to: process.env.MAIL_TO,
-      replyTo: email,
-      subject: `Book Demo Request - ${org}`,
+      ...(email ? { replyTo: email } : {}),
+      subject: hasExtraDetails
+        ? `Book Demo Request - ${org || mobile}`
+        : `Quick Demo Lead - ${mobile}`,
       text,
       html: `
-        <h2>New Book Demo request</h2>
-        <p><b>Name:</b> ${name}</p>
-        <p><b>Organization:</b> ${org}</p>
+        <h2>${hasExtraDetails ? "Book Demo request updated with details" : "New quick Book Demo lead"}</h2>
         <p><b>Mobile:</b> ${mobile}</p>
-        <p><b>Email:</b> ${email}</p>
+        <p><b>Name:</b> ${name || "Not provided"}</p>
+        <p><b>Organization:</b> ${org || "Not provided"}</p>
+        <p><b>Email:</b> ${email || "Not provided"}</p>
         <p><b>Submitted At (IST):</b> ${submittedAt}</p>
       `,
     });

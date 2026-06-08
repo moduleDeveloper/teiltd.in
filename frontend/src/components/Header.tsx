@@ -82,18 +82,18 @@ const Header = () => {
           : "bg-transparent"
       }`}
     >
-      <div className="container flex items-center justify-between h-20">
-        <a href="#home" className="flex items-center gap-2 group">
-          <div className="w-[72px] h-[72px] rounded-xl bg-black ring-1 ring-gold/70 shadow-elegant overflow-hidden shrink-0">
+      <div className="container flex items-center justify-between gap-3 h-20 sm:h-24">
+        <a href="#home" className="flex min-w-0 items-center gap-2 sm:gap-3 group">
+          <div className="w-14 h-14 sm:w-[72px] sm:h-[72px] rounded-xl bg-black ring-1 ring-gold/70 shadow-elegant overflow-hidden shrink-0">
             <img
               src={setuLogo}
               alt="SETU logo"
               className="w-full h-full object-cover scale-[1.22] brightness-125 contrast-125 saturate-110 transition-transform group-hover:scale-[1.28]"
             />
           </div>
-          <div className="leading-tight">
-            <div className="font-display font-bold text-2xl text-gold tracking-wide">SETU</div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gold-soft/90">
+          <div className="min-w-0 leading-tight">
+            <div className="font-display font-bold text-xl sm:text-2xl text-gold tracking-wide">SETU</div>
+            <div className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.12em] sm:tracking-[0.16em] text-gold-soft/90">
               Power connects AI
             </div>
           </div>
@@ -189,16 +189,16 @@ const Header = () => {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <a
             href="https://test-admin-panel-eight.vercel.app"
-            className="btn-shine inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-primary text-primary-foreground text-sm font-semibold shadow-elegant hover:shadow-gold transition-all duration-500 hover:-translate-y-0.5"
+            className="btn-shine inline-flex items-center gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-primary text-primary-foreground text-xs sm:text-sm font-semibold shadow-elegant hover:shadow-gold transition-all duration-500 hover:-translate-y-0.5"
           >
-            <LogIn className="w-4 h-4" />
+            <LogIn className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             Login
           </a>
           <button
-            className="lg:hidden p-2 rounded-md text-primary"
+            className="lg:hidden p-2.5 rounded-xl border border-gold/30 bg-background/70 text-primary"
             onClick={() => setOpen(!open)}
             aria-label="Menu"
           >

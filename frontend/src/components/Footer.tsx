@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import setuLogo from "@/assets/logo-setu.jpeg";
 import { legalInfo } from "@/lib/legal";
 
+const ADMIN_PANEL_URL = "https://test-admin-panel-eight.vercel.app";
+
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
     <path d="M20.52 3.48A11.93 11.93 0 0 0 12.02 0C5.4 0 .02 5.37 0 11.99c0 2.11.55 4.17 1.58 5.99L0 24l6.19-1.62a11.94 11.94 0 0 0 5.83 1.5h.01c6.62 0 11.99-5.38 11.99-12 .01-3.2-1.24-6.2-3.5-8.4Zm-8.5 18.37h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.67.96.98-3.58-.24-.37a9.9 9.9 0 0 1-1.52-5.28c0-5.47 4.45-9.92 9.93-9.92 2.65 0 5.13 1.03 7 2.9a9.84 9.84 0 0 1 2.91 7.01c0 5.47-4.45 9.92-9.92 9.92Zm5.44-7.4c-.3-.15-1.79-.88-2.07-.97-.28-.1-.48-.15-.69.15-.2.3-.79.97-.96 1.16-.18.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.8-1.68-2.1-.18-.3-.02-.46.13-.6.14-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.7-1.68-.97-2.3-.25-.59-.51-.5-.69-.5h-.59c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.71.62.72.23 1.38.2 1.9.12.58-.09 1.79-.73 2.04-1.44.25-.71.25-1.31.18-1.43-.07-.11-.27-.18-.57-.33Z" />
@@ -52,6 +54,7 @@ const Footer = () => {
               <li><a href="#home" className="hover:text-gold transition-colors">Home</a></li>
               <li><a href="#proof" className="hover:text-gold transition-colors">Live Trusts</a></li>
               <li><a href="#contact" className="hover:text-gold transition-colors">Book Demo</a></li>
+              <li><a href={ADMIN_PANEL_URL} className="hover:text-gold transition-colors">Admin Login</a></li>
               <li><Link to="/privacy-policy" className="hover:text-gold transition-colors">Privacy Policy</Link></li>
               <li><Link to="/terms-of-service" className="hover:text-gold transition-colors">Terms of Service</Link></li>
             </ul>

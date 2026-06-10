@@ -16,9 +16,10 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_PORT }}
+          port: 22
           script: |
             cd /var/www/setu-website
+
             GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519" git pull origin main
 
             cd frontend
@@ -28,6 +29,6 @@ jobs:
             cd ../backend
             npm install
 
-            pm2 restart community-digital-home || pm2 start npm --name community-digital-home -- start
+            pm2 restart setu-website || pm2 start npm --name setu-website -- start
 
             pm2 save

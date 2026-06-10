@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import setuLogo from "@/assets/logo-setu.jpeg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-const ADMIN_PANEL_URL = "https://test-admin-panel-eight.vercel.app";
-const USER_APP_LOGIN_URL = "https://test-admin-panel-eight.vercel.app";
+const ADMIN_PANEL_URL = "https://admin-test.contractmitra.in/";
+const USER_APP_LOGIN_URL = "https://user-test.teiltd.in/";
 
 const moduleCategories: { title: string; tint: string; items: { name: string; desc: string }[] }[] = [
   {

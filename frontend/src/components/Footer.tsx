@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import setuLogo from "@/assets/logo-setu.jpeg";
 import { legalInfo } from "@/lib/legal";
 
-const ADMIN_PANEL_URL = "https://test-admin-panel-eight.vercel.app";
+const ADMIN_PANEL_URL = "https://admin-test.contractmitra.in/";
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">

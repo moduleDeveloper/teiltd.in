@@ -1,7 +1,13 @@
-import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config({ path: resolve(__dirname, ".env") });
 
 const app = express();
 const port = Number(process.env.PORT || 3001);
@@ -16,59 +22,109 @@ if (missing.length > 0) {
   console.warn(`Missing env vars: ${missing.join(", ")}`);
 }
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_APP_PASSWORD,
-  },
-});
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const leadsTableUrl = supabaseUrl ? `${supabaseUrl.replace(/\/$/, "")}/rest/v1/leads` : null;
+
+const toLeadRow = (body) => {
+  const {
+    name = null,
+    mobile = null,
+    email = null,
+    org = null,
+    org_name = null,
+    source = null,
+    sourceDetail = null,
+    remark = null,
+  } = body ?? {};
+
+  return {
+    name: name || null,
+    mobile: mobile || null,
+    email: email || null,
+    org_name: org_name || org || null,
+    source: sourceDetail ? `${source || ""}${source ? " - " : ""}${sourceDetail}` : source || null,
+    remark: remark || null,
+  };
+};
+
+const saveLead = async (body) => {
+  if (!leadsTableUrl || !supabaseServiceKey) {
+    throw new Error("Supabase configuration is missing.");
+  }
+
+  const row = toLeadRow(body);
+  const headers = {
+    apikey: supabaseServiceKey,
+    Authorization: `Bearer ${supabaseServiceKey}`,
+    "Content-Type": "application/json",
+    Prefer: "return=representation",
+  };
+
+  const existingResponse = await fetch(`${leadsTableUrl}?mobile=eq.${encodeURIComponent(String(row.mobile))}&order=created_at.desc&limit=1`, {
+    headers,
+  });
+
+  if (!existingResponse.ok) {
+    throw new Error("Failed to look up existing lead");
+  }
+
+  const existingLeads = await existingResponse.json();
+  const existingLead = Array.isArray(existingLeads) ? existingLeads[0] : null;
+
+  if (existingLead?.id) {
+    const updateResponse = await fetch(`${leadsTableUrl}?id=eq.${existingLead.id}`, {
+      method: "PATCH",
+      headers,
+      body: JSON.stringify(row),
+    });
+
+    if (!updateResponse.ok) {
+      throw new Error("Failed to update lead");
+    }
+
+    return { action: "updated" };
+  }
+
+  const insertResponse = await fetch(leadsTableUrl, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      ...row,
+      status: "new",
+      lead_received_at: new Date().toISOString(),
+    }),
+  });
+
+  if (!insertResponse.ok) {
+    throw new Error("Failed to insert lead");
+  }
+
+  return { action: "inserted" };
+};
 
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
 });
 
 app.post("/api/book-demo", async (req, res) => {
-  const { name, org, mobile, email } = req.body ?? {};
+  const { name, org, mobile, email, remark, source, sourceDetail } = req.body ?? {};
+  const normalizedMobile = String(mobile ?? "").replace(/\D/g, "");
 
-  if (!mobile) {
-    return res.status(400).json({ error: "Mobile number is required." });
+  if (!/^[0-9]{10}$/.test(normalizedMobile)) {
+    return res.status(400).json({ error: "Mobile number must be exactly 10 digits." });
   }
 
-  const submittedAt = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
-  const hasExtraDetails = Boolean(name || org || email);
-  const text = [
-    hasExtraDetails ? "Book Demo request updated with details" : "New quick Book Demo lead",
-    `Mobile: ${mobile}`,
-    `Name: ${name || "Not provided"}`,
-    `Organization: ${org || "Not provided"}`,
-    `Email: ${email || "Not provided"}`,
-    `Submitted At (IST): ${submittedAt}`,
-  ].join("\n");
-
   try {
-    await transporter.sendMail({
-      from: `"SETU Website" <${process.env.MAIL_USER}>`,
-      to: process.env.MAIL_TO,
-      ...(email ? { replyTo: email } : {}),
-      subject: hasExtraDetails
-        ? `Book Demo Request - ${org || mobile}`
-        : `Quick Demo Lead - ${mobile}`,
-      text,
-      html: `
-        <h2>${hasExtraDetails ? "Book Demo request updated with details" : "New quick Book Demo lead"}</h2>
-        <p><b>Mobile:</b> ${mobile}</p>
-        <p><b>Name:</b> ${name || "Not provided"}</p>
-        <p><b>Organization:</b> ${org || "Not provided"}</p>
-        <p><b>Email:</b> ${email || "Not provided"}</p>
-        <p><b>Submitted At (IST):</b> ${submittedAt}</p>
-      `,
+    const dbResult = await saveLead({ name, org, mobile: normalizedMobile, email, remark, source, sourceDetail });
+    return res.status(200).json({
+      ok: true,
+      message: "We have received your request. Our team will contact you shortly.",
+      db: dbResult,
     });
-
-    return res.status(200).json({ ok: true });
   } catch (error) {
-    console.error("Email send failed:", error);
-    return res.status(500).json({ error: "Failed to send email." });
+    console.error("Lead save failed:", error);
+    return res.status(500).json({ error: "Failed to save lead." });
   }
 });
 

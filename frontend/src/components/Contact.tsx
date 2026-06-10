@@ -20,7 +20,7 @@ const fullSchema = z.object({
   sourceDetail: z.string().trim().max(120).optional().or(z.literal("")),
 });
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") ?? "";
+const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? "http://localhost:3000" : "")).replace(/\/$/, "");
 
 const Contact = () => {
   const ref = useReveal();
@@ -55,7 +55,7 @@ const Contact = () => {
 
     if (!response.ok) {
       const errorBody = await response.json().catch(() => null);
-      throw new Error(errorBody?.error || "Failed to submit");
+      throw new Error(errorBody?.error || `Failed to submit (${response.status})`);
     }
   };
 
@@ -76,11 +76,11 @@ const Contact = () => {
         title: "Mobile number received",
         description: "We have received your mobile number. You can now share the remaining details.",
       });
-    } catch {
+    } catch (error) {
       setLoading(false);
       toast({
         title: "Could not send request",
-        description: "Please try again in a moment or call us directly.",
+        description: error instanceof Error ? error.message : "Please try again in a moment or call us directly.",
         variant: "destructive",
       });
     }
@@ -100,11 +100,11 @@ const Contact = () => {
       setLoading(false);
       resetForm();
       toast({ title: "Demo request updated", description: "Thank you. We will contact you shortly." });
-    } catch {
+    } catch (error) {
       setLoading(false);
       toast({
         title: "Could not send details",
-        description: "Please try again in a moment or call us directly.",
+        description: error instanceof Error ? error.message : "Please try again in a moment or call us directly.",
         variant: "destructive",
       });
     }

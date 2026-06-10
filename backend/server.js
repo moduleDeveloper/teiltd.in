@@ -12,7 +12,19 @@ dotenv.config({ path: resolve(__dirname, ".env") });
 const app = express();
 const port = Number(process.env.PORT || 3001);
 
-app.use(cors());
+const localOrigins = ["http://localhost:8080", "http://127.0.0.1:8080"];
+const allowedOrigins = (process.env.CORS_ORIGIN || process.env.FRONTEND_ORIGIN || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+const corsOrigins = [...new Set([...allowedOrigins, ...localOrigins])];
+
+app.use(
+  cors({
+    origin: corsOrigins.length > 0 ? corsOrigins : true,
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 const requiredEnv = ["MAIL_USER", "MAIL_APP_PASSWORD", "MAIL_TO"];

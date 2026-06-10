@@ -1,5 +1,5 @@
 import { useReveal } from "@/hooks/useReveal";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, ArrowRight, Send } from "lucide-react";
 import { z } from "zod";
@@ -19,6 +19,8 @@ const fullSchema = z.object({
   source: z.enum(["website", "insta", "facebook", "youtube", "whatsapp", "referral", "other"]),
   sourceDetail: z.string().trim().max(120).optional().or(z.literal("")),
 });
+
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") ?? "";
 
 const Contact = () => {
   const ref = useReveal();
@@ -45,18 +47,19 @@ const Contact = () => {
   };
 
   const submitLead = async (payload: { mobile: string; name?: string; org?: string; email?: string; remark?: string; source?: string; sourceDetail?: string }) => {
-    const response = await fetch("/api/book-demo", {
+    const response = await fetch(`${apiBaseUrl}/api/book-demo`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to submit");
+      const errorBody = await response.json().catch(() => null);
+      throw new Error(errorBody?.error || "Failed to submit");
     }
   };
 
-  const onPrimarySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onPrimarySubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const parsed = mobileSchema.safeParse({ mobile });
     if (!parsed.success) {
@@ -83,7 +86,7 @@ const Contact = () => {
     }
   };
 
-  const onDetailsSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onDetailsSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const parsed = fullSchema.safeParse({ mobile, name, org, email, remark, source, sourceDetail });
     if (!parsed.success) {

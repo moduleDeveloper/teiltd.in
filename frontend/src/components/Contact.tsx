@@ -14,7 +14,7 @@ const fullSchema = z.object({
   mobile: z.string().trim().regex(/^[0-9]{10}$/, "Please enter a 10-digit mobile number"),
   name: z.string().trim().min(2, "Name must be at least 2 characters").max(80),
   org: z.string().trim().min(2, "Organization name must be at least 2 characters").max(120),
-  email: z.string().trim().email("Please enter a valid email address").max(160),
+  email: z.string().trim().email("Please enter a valid email address").max(160).optional().or(z.literal("")),
   remark: z.string().trim().max(500).optional().or(z.literal("")),
   source: z.enum(["website", "insta", "facebook", "youtube", "whatsapp", "referral", "other"]),
   sourceDetail: z.string().trim().max(120).optional().or(z.literal("")),
@@ -108,7 +108,7 @@ const Contact = () => {
   };
 
   const input =
-    "w-full rounded-xl border border-gold/15 bg-[hsl(var(--card))] px-4 py-3 text-sm md:text-base text-foreground placeholder:text-muted-foreground shadow-sm outline-none transition-all focus:border-gold focus:ring-2 focus:ring-gold/25";
+    "w-full rounded-xl border border-white/10 bg-[hsl(var(--background)/0.7)] px-4 py-3 text-sm md:text-base text-foreground placeholder:text-muted-foreground shadow-sm outline-none transition-all focus:border-gold focus:ring-2 focus:ring-gold/25";
   const labelClass = "text-sm font-medium text-foreground";
   const fieldGroup = "space-y-2";
 
@@ -135,7 +135,7 @@ const Contact = () => {
         <div className="reveal w-full bg-gradient-card rounded-3xl p-6 md:p-8 shadow-elegant border border-gold/15 space-y-5 max-w-2xl">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="text-sm font-semibold text-gold">Quick Book Demo</p>
+              <p className="text-lg md:text-xl font-semibold text-gold">Quick Book Demo</p>
               <p className="text-xs text-muted-foreground max-w-md">
                 {step === 1 ? "Please enter your mobile number." : "Share optional details if you'd like."}
               </p>
@@ -144,14 +144,15 @@ const Contact = () => {
           </div>
 
           {step === 1 ? (
-            <form onSubmit={onPrimarySubmit} className="space-y-3">
+            <form onSubmit={onPrimarySubmit} className="space-y-3" autoComplete="off">
               <input
                 name="mobile"
-                placeholder="10-digit Mobile Number *"
+                placeholder="91XXXXXXXX"
                 className={input}
                 inputMode="numeric"
                 maxLength={10}
                 required
+                autoComplete="off"
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value.replace(/\D/g, "").slice(0, 10))}
               />
@@ -166,13 +167,14 @@ const Contact = () => {
               <p className="text-xs text-muted-foreground text-center">Once submitted, your lead is saved immediately.</p>
             </form>
           ) : (
-            <form onSubmit={onDetailsSubmit} className="space-y-4">
+            <form onSubmit={onDetailsSubmit} className="space-y-4" autoComplete="off">
               <input
                 name="mobile"
-                placeholder="10-digit Mobile Number *"
+                placeholder="91XXXXXXXX"
                 className={input}
                 inputMode="numeric"
                 maxLength={10}
+                autoComplete="off"
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value.replace(/\D/g, "").slice(0, 10))}
                 required
@@ -208,7 +210,7 @@ const Contact = () => {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className={fieldGroup}>
                   <label className={labelClass} htmlFor="email">
-                    Email *
+                    Email
                   </label>
                   <input
                     id="email"
@@ -221,57 +223,73 @@ const Contact = () => {
                   />
                 </div>
                 <div className={fieldGroup}>
-                  <label className={labelClass} htmlFor="remark">
-                    Remark
+                  <label className={labelClass} htmlFor="source">
+                    How did you hear about us? *
                   </label>
-                  <Textarea
-                    id="remark"
-                    name="remark"
-                    placeholder="Write your remarks here..."
-                    className={`${input} min-h-32 resize-y bg-[hsl(var(--card))]`}
-                    value={remark}
-                    onChange={(e) => setRemark(e.target.value)}
-                  />
+                  <div className="space-y-2">
+                    <Select
+                      value={source}
+                      onValueChange={(value) => {
+                        setSource(value);
+                        if (value !== "other") {
+                          setSourceDetail("");
+                        }
+                      }}
+                    >
+                      <SelectTrigger
+                        id="source"
+                        className={`${input} h-12 w-full bg-[hsl(var(--background)/0.7)] text-left`}
+                      >
+                        <SelectValue placeholder="Select a source" />
+                      </SelectTrigger>
+                      <SelectContent className="border-white/10 bg-[hsl(var(--card))] text-foreground shadow-elegant">
+                        <SelectItem value="website" className="focus:bg-white/5 focus:text-foreground">
+                          Website
+                        </SelectItem>
+                        <SelectItem value="insta" className="focus:bg-white/5 focus:text-foreground">
+                          Insta
+                        </SelectItem>
+                        <SelectItem value="facebook" className="focus:bg-white/5 focus:text-foreground">
+                          Facebook
+                        </SelectItem>
+                        <SelectItem value="youtube" className="focus:bg-white/5 focus:text-foreground">
+                          YouTube
+                        </SelectItem>
+                        <SelectItem value="whatsapp" className="focus:bg-white/5 focus:text-foreground">
+                          WhatsApp
+                        </SelectItem>
+                        <SelectItem value="referral" className="focus:bg-white/5 focus:text-foreground">
+                          Referral
+                        </SelectItem>
+                        <SelectItem value="other" className="focus:bg-white/5 focus:text-foreground">
+                          Other
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {source === "other" ? (
+                      <input
+                        name="sourceDetail"
+                        placeholder="Please specify source"
+                        className={input}
+                        value={sourceDetail}
+                        onChange={(e) => setSourceDetail(e.target.value)}
+                      />
+                    ) : null}
+                  </div>
                 </div>
               </div>
-              <div className="space-y-2">
-                <label className={labelClass} htmlFor="source">
-                  How did you hear about us? *
+              <div className={fieldGroup}>
+                <label className={labelClass} htmlFor="remark">
+                  Remark
                 </label>
-                <Select
-                  value={source}
-                  onValueChange={(value) => {
-                    setSource(value);
-                    if (value !== "other") {
-                      setSourceDetail("");
-                    }
-                  }}
-                >
-                  <SelectTrigger
-                    id="source"
-                    className={`${input} h-12 bg-[hsl(var(--card))] text-left`}
-                  >
-                    <SelectValue placeholder="Select a source" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="website">Website</SelectItem>
-                    <SelectItem value="insta">Insta</SelectItem>
-                    <SelectItem value="facebook">Facebook</SelectItem>
-                    <SelectItem value="youtube">YouTube</SelectItem>
-                    <SelectItem value="whatsapp">WhatsApp</SelectItem>
-                    <SelectItem value="referral">Referral</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-                {source === "other" ? (
-                  <input
-                    name="sourceDetail"
-                    placeholder="Please specify source"
-                    className={input}
-                    value={sourceDetail}
-                    onChange={(e) => setSourceDetail(e.target.value)}
-                  />
-                ) : null}
+                <Textarea
+                  id="remark"
+                  name="remark"
+                  placeholder="Write your remarks here..."
+                  className={`${input} min-h-40 resize-y bg-[hsl(var(--background)/0.7)]`}
+                  value={remark}
+                  onChange={(e) => setRemark(e.target.value)}
+                />
               </div>
               <div className="flex flex-col-reverse sm:flex-row gap-3">
                 <button

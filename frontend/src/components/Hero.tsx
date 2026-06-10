@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type SyntheticEvent } from "react";
-import { ArrowRight, PlayCircle } from "lucide-react";
+import { ArrowRight, Download, PlayCircle } from "lucide-react";
 
 const trustedPlatforms = [
   { name: "MAH-SETU", logo: "/proof/mah-logo.jpeg" },
@@ -9,6 +9,7 @@ const trustedPlatforms = [
 
 const Hero = () => {
   const [isLandscapeVideo, setIsLandscapeVideo] = useState(false);
+  const [isDownloadingApp, setIsDownloadingApp] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const handleVideoMetadata = (event: SyntheticEvent<HTMLVideoElement>) => {
@@ -27,6 +28,14 @@ const Hero = () => {
       });
     }
   }, []);
+
+  const handleDownloadApp = () => {
+    setIsDownloadingApp(true);
+    window.setTimeout(() => {
+      window.open("https://play.google.com/store/apps/details?id=com.Setu.app", "_blank", "noopener,noreferrer");
+      setIsDownloadingApp(false);
+    }, 180);
+  };
 
   return (
     <section id="home" className="relative min-h-screen pt-24 pb-10 sm:pt-28 lg:pt-28 lg:pb-12 overflow-hidden bg-gradient-hero">
@@ -118,6 +127,21 @@ const Hero = () => {
               />
             </div>
           </div>
+
+          <button
+            type="button"
+            onClick={handleDownloadApp}
+            disabled={isDownloadingApp}
+            className="group mt-5 w-full inline-flex items-center justify-center gap-3 rounded-full border border-gold/40 bg-[linear-gradient(180deg,hsl(43_74%_63%/.16),hsl(43_74%_63%/.06))] px-6 py-4 text-gold font-semibold shadow-[0_12px_30px_hsl(43_74%_63%/.14)] transition-all duration-500 hover:-translate-y-1 hover:border-gold hover:shadow-[0_16px_36px_hsl(43_74%_63%/.22)] disabled:opacity-70 disabled:cursor-wait"
+          >
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold/15 ring-1 ring-gold/25">
+              <Download className={`h-5 w-5 transition-transform duration-300 ${isDownloadingApp ? "animate-bounce" : "group-hover:translate-y-0.5"}`} />
+            </span>
+            <span className="flex flex-col items-start leading-tight text-left">
+              <span className="text-base sm:text-lg">{isDownloadingApp ? "Opening Store..." : "Download the App"}</span>
+              <span className="text-xs font-normal text-gold/75">Get SETU on Google Play</span>
+            </span>
+          </button>
 
           {/* Floating stat cards */}
           <div className="absolute -right-4 bottom-10 bg-background/90 rounded-2xl p-4 shadow-elegant border border-gold/20 hidden md:block backdrop-blur">

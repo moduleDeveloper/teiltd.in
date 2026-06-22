@@ -14,7 +14,7 @@ const Hero = () => {
   const [isLandscapeVideo, setIsLandscapeVideo] = useState(false);
   const [isDownloadingApp, setIsDownloadingApp] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const createCommunityHref = `${legalInfo.whatsappHref}?text=${encodeURIComponent("Create")}`;
+  const createCommunityHref = `${legalInfo.whatsappHref}?text=${encodeURIComponent("Interested")}`;
 
   const handleVideoMetadata = (event: SyntheticEvent<HTMLVideoElement>) => {
     const { videoWidth, videoHeight } = event.currentTarget;

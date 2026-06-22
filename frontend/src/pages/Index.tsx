@@ -3,8 +3,10 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import AboutCompany from "@/components/AboutCompany";
 import Proof from "@/components/Proof";
+import Pricing from "@/components/Pricing";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
 const Index = () => {
   useEffect(() => {
@@ -65,10 +67,12 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <Header />
+      <FloatingWhatsApp />
       <main>
         <Hero />
         <AboutCompany />
         <Proof />
+        <Pricing />
         <Contact />
       </main>
       <Footer />

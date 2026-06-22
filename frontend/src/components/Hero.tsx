@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState, type SyntheticEvent } from "react";
 import { ArrowRight, Download, PlayCircle } from "lucide-react";
+import { legalInfo } from "@/lib/legal";
+
+const APP_DOWNLOAD_URL = "https://teiltd.in/app-download";
 
 const trustedPlatforms = [
   { name: "MAH-SETU", logo: "/proof/mah-logo.jpeg" },
@@ -11,6 +14,7 @@ const Hero = () => {
   const [isLandscapeVideo, setIsLandscapeVideo] = useState(false);
   const [isDownloadingApp, setIsDownloadingApp] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const createCommunityHref = `${legalInfo.whatsappHref}?text=${encodeURIComponent("Create")}`;
 
   const handleVideoMetadata = (event: SyntheticEvent<HTMLVideoElement>) => {
     const { videoWidth, videoHeight } = event.currentTarget;
@@ -32,7 +36,7 @@ const Hero = () => {
   const handleDownloadApp = () => {
     setIsDownloadingApp(true);
     window.setTimeout(() => {
-      window.open("https://play.google.com/store/apps/details?id=com.Setu.app", "_blank", "noopener,noreferrer");
+      window.location.href = APP_DOWNLOAD_URL;
       setIsDownloadingApp(false);
     }, 180);
   };
@@ -103,6 +107,13 @@ const Hero = () => {
             isLandscapeVideo ? "lg:max-w-[640px]" : "lg:max-w-[440px]"
           }`}
         >
+          <button
+            type="button"
+            onClick={() => window.open(createCommunityHref, "_blank", "noopener,noreferrer")}
+            className="mb-4 inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-green-400/30 bg-white/5 px-6 py-3.5 text-white font-semibold backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:border-green-400 hover:shadow-[0_16px_36px_rgba(37,211,102,0.18)]"
+          >
+            Create your own personalized community
+          </button>
           <div
             className={`relative w-full bg-black/95 border border-gold/40 shadow-[0_18px_46px_hsl(43_74%_63%/.35)] p-2 max-h-[82vh] ${
               isLandscapeVideo ? "aspect-[19/9.6] rounded-[1.5rem] sm:rounded-[1.8rem]" : "aspect-[9.6/19] rounded-[1.8rem] sm:rounded-[2.2rem]"
@@ -137,10 +148,7 @@ const Hero = () => {
             <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold/15 ring-1 ring-gold/25">
               <Download className={`h-5 w-5 transition-transform duration-300 ${isDownloadingApp ? "animate-bounce" : "group-hover:translate-y-0.5"}`} />
             </span>
-            <span className="flex flex-col items-start leading-tight text-left">
-              <span className="text-base sm:text-lg">{isDownloadingApp ? "Opening Store..." : "Download the App"}</span>
-              <span className="text-xs font-normal text-gold/75">Get SETU on Google Play</span>
-            </span>
+            <span className="text-base sm:text-lg">{isDownloadingApp ? "Opening App Download..." : "Download the App"}</span>
           </button>
 
           {/* Floating stat cards */}

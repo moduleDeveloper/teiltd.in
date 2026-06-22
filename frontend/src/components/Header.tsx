@@ -52,6 +52,7 @@ const moduleCategories: { title: string; tint: string; items: { name: string; de
 const links = [
   { href: "/", label: "Home" },
   { href: "#about-company", label: "About" },
+  { href: "#pricing", label: "Products" },
   { href: "#proof", label: "Live Trusts" },
   { href: "#contact", label: "Contact" },
 ];

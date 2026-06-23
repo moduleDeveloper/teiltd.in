@@ -53,8 +53,14 @@ const AboutCompany = () => {
               <p><span className="text-gold font-semibold">Support Email:</span> {legalInfo.officialEmail}</p>
               <p className="sm:col-span-2">
                 <span className="text-gold font-semibold">Support WhatsApp:</span>{" "}
-                <a href={legalInfo.whatsappHref} className="hover:text-gold transition-colors">
+                <a href={legalInfo.whatsappHref} className="text-foreground/80 hover:text-gold transition-colors">
                   {legalInfo.whatsapp}
+                </a>
+              </p>
+              <p className="sm:col-span-2">
+                <span className="text-gold font-semibold">Support Phone:</span>{" "}
+                <a href={legalInfo.secondaryPhoneHref} className="text-foreground/80 hover:text-gold transition-colors">
+                  {legalInfo.secondaryPhone}
                 </a>
               </p>
             </div>

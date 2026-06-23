@@ -139,6 +139,23 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  .scrollbar-gold {
+    scrollbar-color: hsl(43 74% 63% / 0.75) hsl(220 28% 7%);
+    scrollbar-width: thin;
+  }
+  .scrollbar-gold::-webkit-scrollbar {
+    height: 10px;
+  }
+  .scrollbar-gold::-webkit-scrollbar-track {
+    background: hsl(220 28% 7%);
+    border-radius: 999px;
+  }
+  .scrollbar-gold::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, hsl(43 74% 63%), hsl(38 62% 46%));
+    border-radius: 999px;
+    border: 2px solid hsl(220 28% 7%);
+  }
 }
 
 @keyframes float {

@@ -11,7 +11,7 @@ const trustedPlatforms = [
 ];
 
 const Hero = () => {
-  const [isLandscapeVideo, setIsLandscapeVideo] = useState(false);
+  const [isLandscapeVideo, setIsLandscapeVideo] = useState(true);
   const [isDownloadingApp, setIsDownloadingApp] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const createCommunityHref = `${legalInfo.whatsappHref}?text=${encodeURIComponent("Interested")}`;
@@ -49,8 +49,9 @@ const Hero = () => {
 
       <div className="container relative grid gap-10 lg:grid-cols-2 lg:gap-8 items-center">
         <div className="animate-fade-in-up">
-          <h1 className="max-w-[12ch] font-display text-[2.5rem] leading-[1.02] sm:text-5xl lg:text-6xl xl:text-[5.2rem] font-bold text-primary">
-            Where Communities <span className="text-gradient-gold">Feel Connected</span>
+          <h1 className="max-w-[11ch] font-display text-[2.5rem] leading-[0.98] sm:text-5xl lg:text-6xl xl:text-[5.2rem] font-bold text-primary">
+            <span className="block">Where Communities</span>
+            <span className="block text-gradient-gold">Feel Connected</span>
           </h1>
 
           <div className="mt-5 max-w-xl space-y-3 text-base sm:text-[1.05rem] lg:text-lg text-muted-foreground leading-relaxed">

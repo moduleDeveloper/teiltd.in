@@ -1,6 +1,6 @@
 import { Menu, X, LogIn, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import setuLogo from "@/assets/logo-setu.jpeg";
+const setuLogo = "/proof/setuLogo.jpeg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const ADMIN_PANEL_URL = "https://app-test.teiltd.in/";
@@ -52,7 +52,7 @@ const moduleCategories: { title: string; tint: string; items: { name: string; de
 const links = [
   { href: "/", label: "Home" },
   { href: "#about-company", label: "About" },
-  { href: "#pricing", label: "Products" },
+  { href: "#pricing", label: "Plans" },
   { href: "#proof", label: "Live Trusts" },
   { href: "#contact", label: "Contact" },
 ];

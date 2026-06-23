@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Send } from "lucide-react";
 import { z } from "zod";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { legalInfo } from "@/lib/legal";
 
 const mobileSchema = z.object({
   mobile: z.string().trim().regex(/^[0-9]{10}$/, "Please enter a 10-digit mobile number"),
@@ -129,9 +130,24 @@ const Contact = () => {
           </h2>
           <div className="mt-8 p-5 rounded-2xl bg-gradient-card border border-gold/15 shadow-card max-w-md">
             <p className="text-sm text-gold font-semibold">Contact us at</p>
-            <a href="https://wa.me/919136373636" target="_blank" rel="noopener noreferrer" className="font-display text-2xl text-gold hover:text-gold-soft transition-colors">
-              +91 91363 73636
-            </a>
+            <div className="mt-2 space-y-1">
+              <a
+                href={legalInfo.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-lg font-semibold leading-relaxed text-gold hover:text-gold-soft transition-colors"
+              >
+                {legalInfo.whatsapp}
+              </a>
+              <a
+                href={legalInfo.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-gold/80 hover:text-gold-soft transition-colors"
+              >
+                Chat on WhatsApp
+              </a>
+            </div>
           </div>
         </div>
 

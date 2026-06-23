@@ -113,8 +113,9 @@ const Proof = () => {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background/70" />
       <div className="container">
         <div className="relative text-center max-w-3xl mx-auto reveal">
-          <h2 className="mt-4 font-display text-3xl md:text-5xl font-bold text-foreground">
-            Real platforms. <span className="text-gradient-gold">Real members.</span> Real impact.
+          <h2 className="mt-4 font-display text-3xl md:text-5xl font-bold text-foreground leading-[0.95]">
+            <span className="block">Real platforms. <span className="text-gradient-gold">Real members.</span></span>
+            <span className="block">Real impact.</span>
           </h2>
           <p className="mt-5 text-muted-foreground/90 text-lg">
             We&apos;re not just making promises — we&apos;re already trusted by some of Delhi&apos;s most respected community organizations.
@@ -123,7 +124,7 @@ const Proof = () => {
 
         <div className="mt-10 text-center reveal">
           <span className="inline-block px-5 py-2 text-sm uppercase tracking-[0.24em] text-gold-foreground font-bold bg-gradient-gold rounded-full shadow-gold">
-            Live Proof
+            Live
           </span>
         </div>
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import setuLogo from "@/assets/logo-setu.jpeg";
+const setuLogo = "/proof/setuLogo.jpeg";
 import { legalInfo } from "@/lib/legal";
 
 const ADMIN_PANEL_URL = "https://admin-test.contractmitra.in/";
@@ -86,12 +86,23 @@ const Footer = () => {
               <p><span className="text-gold font-semibold">CIN:</span> {legalInfo.cin}</p>
               <p><span className="text-gold font-semibold">GSTIN:</span> {legalInfo.gstin}</p>
               <p><span className="text-gold font-semibold">Registered Office:</span> {legalInfo.registeredOffice}</p>
-              <p>
-                <span className="text-gold font-semibold">Contact:</span>{" "}
-                <a href={legalInfo.whatsappHref} className="text-gold hover:text-gold-soft transition-colors">
-                  {legalInfo.whatsapp}
-                </a>
-              </p>
+              <div>
+                <p className="text-gold font-semibold">Contact:</p>
+                <div className="mt-1 space-y-1">
+                  <a
+                    href={legalInfo.secondaryPhoneHref}
+                    className="block text-sm sm:text-base leading-relaxed tracking-normal text-gold hover:text-gold-soft transition-colors"
+                  >
+                    {legalInfo.secondaryPhone}
+                  </a>
+                  <a
+                    href={legalInfo.whatsappHref}
+                    className="block text-sm sm:text-base leading-relaxed tracking-normal text-gold/90 hover:text-gold-soft transition-colors"
+                  >
+                    {legalInfo.whatsapp}
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -99,7 +110,7 @@ const Footer = () => {
             <h4 className="font-display text-lg mb-4 text-gold">Explore</h4>
             <ul className="space-y-2 text-sm text-foreground/75">
               <li><a href="#home" className="hover:text-gold transition-colors">Home</a></li>
-              <li><a href="#pricing" className="hover:text-gold transition-colors">Products</a></li>
+              <li><a href="#pricing" className="hover:text-gold transition-colors">Plans</a></li>
               <li><a href="#proof" className="hover:text-gold transition-colors">Live Trusts</a></li>
               <li><a href="#contact" className="hover:text-gold transition-colors">Book Demo</a></li>
               <li><a href={ADMIN_PANEL_URL} className="hover:text-gold transition-colors">Admin Login</a></li>
@@ -115,7 +126,7 @@ const Footer = () => {
                 { Icon: InstagramBrandIcon, href: "https://www.instagram.com/setu.subscriber/", label: "Instagram" },
                 { Icon: FacebookBrandIcon, href: "https://www.facebook.com/profile.php?id=61588890179524", label: "Facebook" },
                 { Icon: YouTubeBrandIcon, href: "https://www.youtube.com/@EliteCommunity_Hub", label: "YouTube" },
-                { Icon: WhatsAppBrandIcon, href: "https://wa.me/919136373636", label: "WhatsApp" },
+                { Icon: WhatsAppBrandIcon, href: legalInfo.whatsappHref, label: "WhatsApp" },
               ].map(({ Icon, href, label }) => (
                 <a
                   key={label}

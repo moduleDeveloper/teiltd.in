@@ -37,11 +37,11 @@ const plans: Array<{
 }> = [
   {
     key: "starter",
-    name: "Starter",
+    name: "Growth",
     tagline: "For societies getting started with digital management.",
     price: "₹1,00,000",
     period: "per year",
-    cta: "Choose starter",
+    cta: "Choose growth",
     bullets: [
       "Unlimited members",
       "1 GB storage",
@@ -76,7 +76,7 @@ const plans: Array<{
   },
   {
     key: "legacy",
-    name: "Legacy",
+    name: "Enterprise",
     tagline: "Custom-built for societies with complex, long-term needs.",
     price: "Custom",
     period: "talk to our team",
@@ -147,13 +147,13 @@ const Pricing = () => {
                     Features
                   </th>
                   <th className="border-b border-[#4a3a18] px-5 py-4 font-display text-base font-semibold text-[#e7bb53]">
-                    Starter - {"₹"}1,00,000
+                    Growth - {"₹"}1,00,000
                   </th>
                   <th className="border-b border-[#4a3a18] px-5 py-4 font-display text-base font-semibold text-[#e7bb53]">
                     Professional - {"₹"}2,50,000
                   </th>
                   <th className="border-b border-[#4a3a18] px-5 py-4 font-display text-base font-semibold text-[#e7bb53]">
-                    Legacy - Custom
+                    Enterprise - Custom
                   </th>
                 </tr>
               </thead>
@@ -196,42 +196,48 @@ const Pricing = () => {
               key={plan.key}
               className={[
                 "flex h-full flex-col rounded-[1.25rem] border p-7 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.75)] transition-transform duration-300 hover:-translate-y-1",
-                plan.light
-                  ? "border-[#e7bb53] bg-[#e0b84a] text-[#0b0a08] shadow-[0_20px_50px_-30px_rgba(231,187,83,0.35)]"
-                  : "border-[#2c2312] bg-[#120f0a] text-[#f3efe4]",
-                plan.featured ? "border-[#e7bb53] ring-1 ring-[#e7bb53]/35" : "",
+                plan.key === "starter"
+                  ? "border-[#2a241a] bg-[#0d0c0a] text-[#f3efe4] shadow-[0_20px_50px_-30px_rgba(0,0,0,0.75)]"
+                  : plan.key === "professional"
+                    ? "border-[#d2d2d2] bg-[#c8c8c8] text-[#111111] shadow-[0_20px_50px_-30px_rgba(200,200,200,0.3)]"
+                    : "border-[#e7bb53] bg-[#e0b84a] text-[#0b0a08] shadow-[0_20px_50px_-30px_rgba(231,187,83,0.35)]",
+                plan.featured ? "border-[#d2d2d2] ring-1 ring-white/20" : "",
               ].join(" ")}
             >
               <div className="flex min-h-[44px] items-center justify-between gap-3">
                 <span
                   className={[
                     "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[10.5px] font-semibold uppercase tracking-[0.12em]",
-                    plan.light ? "border-[#0b0a08]/10 bg-[#efc959] text-[#0b0a08]" : "border-[#342a18] bg-white/[0.03] text-[#b98d35]",
+                    plan.key === "starter"
+                      ? "border-[#3a2f16] bg-[#121009] text-[#b98d35]"
+                      : plan.key === "professional"
+                        ? "border-[#8a8a8a] bg-[#e8e8e8] text-[#111111]"
+                        : "border-[#0b0a08]/10 bg-[#efc959] text-[#0b0a08]",
                   ].join(" ")}
                 >
                   <Shield className="h-3.5 w-3.5" />
                   Verification ready
                 </span>
                 {plan.featured ? (
-                  <span className="rounded-full bg-[#e7bb53] px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#0b0a08]">
+                  <span className="rounded-full bg-[#f2f2f2] px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#111111]">
                     Most popular
                   </span>
                 ) : null}
               </div>
 
               <h3 className="mt-4 min-h-[3.5rem] font-display text-3xl font-semibold">{plan.name}</h3>
-              <p className={["mt-2 text-sm leading-6", plan.light ? "text-[#1c1a14]/75" : "text-[#b3ac99]"].join(" ")}>
+              <p className={["mt-2 text-sm leading-6", plan.key === "professional" ? "text-[#111111]/75" : plan.key === "starter" ? "text-[#b3ac99]" : "text-[#1c1a14]/75"].join(" ")}>
                 {plan.tagline}
               </p>
 
-              <div className={["mt-6 min-h-[132px] rounded-2xl border p-4", plan.light ? "border-[#c69322] bg-[#f0c44f]" : "border-[#2c2312] bg-black/15"].join(" ")}>
-                <div className={["text-[11px] uppercase tracking-[0.14em]", plan.light ? "text-[#0b0a08]/70" : "text-[#82775f]"].join(" ")}>
+              <div className={["mt-6 min-h-[132px] rounded-2xl border p-4", plan.key === "starter" ? "border-[#2c2312] bg-black/15" : plan.key === "professional" ? "border-[#8f8f8f] bg-[#ececec]" : "border-[#c69322] bg-[#f0c44f]"].join(" ")}>
+                <div className={["text-[11px] uppercase tracking-[0.14em]", plan.key === "professional" ? "text-[#111111]/70" : plan.key === "starter" ? "text-[#82775f]" : "text-[#0b0a08]/70"].join(" ")}>
                   Price
                 </div>
-                <div className={["mt-1 font-display text-4xl font-semibold leading-none", plan.light ? "text-[#0b0a08]" : "text-[#e7bb53]"].join(" ")}>
+                <div className={["mt-1 font-display text-4xl font-semibold leading-none", plan.key === "starter" ? "text-[#e7bb53]" : plan.key === "professional" ? "text-[#111111]" : "text-[#0b0a08]"].join(" ")}>
                   {plan.price}
                 </div>
-                <div className={["mt-2 text-sm", plan.light ? "text-[#0b0a08]/75" : "text-[#b3ac99]"].join(" ")}>
+                <div className={["mt-2 text-sm", plan.key === "professional" ? "text-[#111111]/75" : plan.key === "starter" ? "text-[#b3ac99]" : "text-[#0b0a08]/75"].join(" ")}>
                   {plan.period}
                 </div>
               </div>
@@ -243,11 +249,11 @@ const Pricing = () => {
                   rel="noopener noreferrer"
                   className={[
                     "mt-5 inline-flex w-full items-center justify-center rounded-xl border px-4 py-3 text-sm font-semibold transition-colors",
-                    plan.light
+                    plan.key === "starter"
                       ? "border-[#0b0a08] bg-[#0b0a08] text-[#f3cf7e] hover:bg-[#1c1a14] hover:text-[#f8e29b]"
-                      : plan.featured
-                        ? "border-[#e7bb53] bg-[#e7bb53] text-[#0b0a08] hover:bg-[#f0c15a]"
-                        : "border-[#7d6122] bg-transparent text-[#e7bb53] hover:bg-[#e7bb53] hover:text-[#0b0a08]",
+                      : plan.key === "professional"
+                        ? "border-[#111111] bg-[#f2f2f2] text-[#111111] hover:bg-white"
+                        : "border-[#7d6122] bg-[#7d6122] text-[#0b0a08] hover:bg-[#0b0a08] hover:text-[#f3cf7e]",
                   ].join(" ")}
                 >
                   {plan.cta}
@@ -256,10 +262,10 @@ const Pricing = () => {
                 <button
                   className={[
                     "mt-5 w-full rounded-xl border px-4 py-3 text-sm font-semibold transition-colors",
-                    plan.light
+                    plan.key === "starter"
                       ? "border-[#0b0a08] bg-[#0b0a08] text-[#f3cf7e] hover:bg-[#1c1a14] hover:text-[#f8e29b]"
-                      : plan.featured
-                        ? "border-[#e7bb53] bg-[#e7bb53] text-[#0b0a08] hover:bg-[#f0c15a]"
+                      : plan.key === "professional"
+                        ? "border-[#111111] bg-[#f2f2f2] text-[#111111] hover:bg-white"
                         : "border-[#7d6122] bg-transparent text-[#e7bb53] hover:bg-[#e7bb53] hover:text-[#0b0a08]",
                   ].join(" ")}
                 >
@@ -270,10 +276,10 @@ const Pricing = () => {
               <ul className="mt-6 flex-1 space-y-3">
                 {plan.bullets.map((bullet) => (
                   <li
-                    key={bullet}
-                    className={["flex items-start gap-2 text-sm leading-6", plan.light ? "text-[#0b0a08]/80" : "text-[#b3ac99]"].join(" ")}
+                  key={bullet}
+                    className={["flex items-start gap-2 text-sm leading-6", plan.key === "professional" ? "text-[#111111]/80" : plan.key === "starter" ? "text-[#b3ac99]" : "text-[#0b0a08]/80"].join(" ")}
                   >
-                    <Check className={["mt-0.5 h-4 w-4 shrink-0", plan.light ? "text-[#0b0a08]/70" : "text-[#6fae6a]"].join(" ")} />
+                    <Check className={["mt-0.5 h-4 w-4 shrink-0", plan.key === "starter" ? "text-[#6fae6a]" : plan.key === "professional" ? "text-[#6b6b6b]" : "text-[#0b0a08]/70"].join(" ")} />
                     <span>{bullet}</span>
                   </li>
                 ))}

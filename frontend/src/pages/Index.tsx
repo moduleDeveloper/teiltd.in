@@ -48,9 +48,9 @@ const Index = () => {
       founder: { "@type": "Person", name: "Ankit Gupta" },
       address: { "@type": "PostalAddress", addressLocality: "North Delhi", addressCountry: "IN" },
       sameAs: [
-        "https://www.instagram.com/setu.subscriber/",
-        "https://www.facebook.com/profile.php?id=61588890179524",
-        "https://www.youtube.com/@EliteCommunity_Hub",
+        "https://www.instagram.com/setu.connect_?utm_source=qr",
+        "https://www.facebook.com/profile.php?id=61590315414709&mibextid=wwXIfr&mibextid=wwXIfr",
+        "https://youtube.com/@setuconnect?si=I9us3BgotmQ90Ny3",
       ],
       contactPoint: { "@type": "ContactPoint", telephone: "+91-9136373636", contactType: "customer service" },
     };

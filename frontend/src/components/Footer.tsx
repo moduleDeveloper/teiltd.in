@@ -123,9 +123,9 @@ const Footer = () => {
             <h4 className="font-display text-lg mb-4 text-gold">Also Connect With Social Media Platforms</h4>
             <div className="flex flex-wrap gap-3">
               {[
-                { Icon: InstagramBrandIcon, href: "https://www.instagram.com/setu.subscriber/", label: "Instagram" },
-                { Icon: FacebookBrandIcon, href: "https://www.facebook.com/profile.php?id=61588890179524", label: "Facebook" },
-                { Icon: YouTubeBrandIcon, href: "https://www.youtube.com/@EliteCommunity_Hub", label: "YouTube" },
+                { Icon: InstagramBrandIcon, href: "https://www.instagram.com/setu.connect_?utm_source=qr", label: "Instagram" },
+                { Icon: FacebookBrandIcon, href: "https://www.facebook.com/profile.php?id=61590315414709&mibextid=wwXIfr&mibextid=wwXIfr", label: "Facebook" },
+                { Icon: YouTubeBrandIcon, href: "https://youtube.com/@setuconnect?si=I9us3BgotmQ90Ny3", label: "YouTube" },
                 { Icon: WhatsAppBrandIcon, href: legalInfo.whatsappHref, label: "WhatsApp" },
               ].map(({ Icon, href, label }) => (
                 <a

@@ -20,7 +20,9 @@ jobs:
           script: |
             cd /var/www/setu-website
 
-            GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519" git pull origin main
+            git fetch origin
+            git reset --hard origin/main
+            git log --oneline -1
 
             cd frontend
             printf "VITE_API_BASE_URL=%s\n" "${{ secrets.VITE_API_BASE_URL }}" > .env
@@ -30,6 +32,6 @@ jobs:
             cd ../backend
             npm install
 
-            pm2 restart setu-website || pm2 start npm --name setu-website -- start
+            pm2 restart setu-website --update-env || pm2 start npm --name setu-website -- start
 
             pm2 save

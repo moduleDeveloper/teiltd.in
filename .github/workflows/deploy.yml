@@ -23,6 +23,8 @@ jobs:
             git fetch origin
             git reset --hard origin/main
             git log --oneline -1
+            git lfs install --local
+            git lfs pull
 
             cd frontend
             printf "VITE_API_BASE_URL=%s\n" "${{ secrets.VITE_API_BASE_URL }}" > .env

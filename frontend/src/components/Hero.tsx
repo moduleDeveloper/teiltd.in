@@ -123,7 +123,7 @@ const Hero = () => {
             <div className={`relative h-full w-full overflow-hidden bg-black ${isLandscapeVideo ? "rounded-[1.1rem] sm:rounded-[1.3rem]" : "rounded-[1.4rem] sm:rounded-[1.7rem]"}`}>
               <video
                 ref={videoRef}
-                src="/setu2.mp4"
+                src="/proof/VN20260623_170616.mp4"
                 loop
                 autoPlay
                 controls

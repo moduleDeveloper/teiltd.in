@@ -115,18 +115,18 @@ const Pricing = () => {
         className="pointer-events-none absolute inset-0 opacity-35"
         style={{
           backgroundImage:
-            "radial-gradient(circle at top, rgba(232,184,90,0.12), transparent 32%), radial-gradient(circle at 20% 20%, rgba(255,255,255,0.03), transparent 24%), radial-gradient(circle at 80% 0%, rgba(232,184,90,0.06), transparent 26%)",
+            "radial-gradient(circle at top, rgba(232,184,90,0.2), transparent 32%), radial-gradient(circle at 20% 20%, rgba(255,255,255,0.03), transparent 24%), radial-gradient(circle at 80% 0%, rgba(232,184,90,0.1), transparent 26%)",
         }}
       />
       <div className="container relative mx-auto max-w-6xl px-4">
         <div className="mx-auto max-w-3xl text-center reveal">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#3a2f16] bg-[#121009] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#b98d35]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#3a2f16] bg-[#121009] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#e0c073]">
             <Sparkles className="h-3.5 w-3.5" />
             Plans
           </span>
           <h2 className="mt-5 font-display text-4xl font-semibold leading-tight text-[#f3efe4] md:text-5xl">
             Subscription plans built for
-            <span className="block text-[#f0c15a]">Every society, Every scale.</span>
+            <span className="block text-[#e0c073]">Every society, Every scale.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-[#b3ac99] md:text-base">
             Choose the plan that fits your organisation, from a single resident association to a custom legacy deployment.
@@ -195,49 +195,52 @@ const Pricing = () => {
             <article
               key={plan.key}
               className={[
-                "flex h-full flex-col rounded-[1.25rem] border p-7 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.75)] transition-transform duration-300 hover:-translate-y-1",
+                "pricing-card-shine flex h-full flex-col rounded-[1.25rem] border p-7 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.75)] transition-transform duration-300 hover:-translate-y-1",
                 plan.key === "starter"
-                  ? "border-[#2a241a] bg-[#0d0c0a] text-[#f3efe4] shadow-[0_20px_50px_-30px_rgba(0,0,0,0.75)]"
+                  ? "border-[#d9b55a] bg-[#f7efe0] text-[#111111] shadow-[0_20px_50px_-30px_rgba(0,0,0,0.75)]"
                   : plan.key === "professional"
-                    ? "border-[#d2d2d2] bg-[#c8c8c8] text-[#111111] shadow-[0_20px_50px_-30px_rgba(200,200,200,0.3)]"
-                    : "border-[#e7bb53] bg-[#e0b84a] text-[#0b0a08] shadow-[0_20px_50px_-30px_rgba(231,187,83,0.35)]",
-                plan.featured ? "border-[#d2d2d2] ring-1 ring-white/20" : "",
+                    ? "border-[#8f8f8f] bg-[#d5d5d5] text-[#111111] shadow-[0_20px_50px_-30px_rgba(200,200,200,0.34)]"
+                    : "border-[#c9961f] bg-[#e0b84a] text-[#0b0a08] shadow-[0_20px_50px_-30px_rgba(231,187,83,0.35)]",
+                plan.featured ? "ring-1 ring-white/18" : "",
               ].join(" ")}
             >
+              <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[1.25rem]">
+                <div className="pricing-card-sheen" />
+              </div>
               <div className="flex min-h-[44px] items-center justify-between gap-3">
                 <span
                   className={[
                     "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[10.5px] font-semibold uppercase tracking-[0.12em]",
                     plan.key === "starter"
-                      ? "border-[#3a2f16] bg-[#121009] text-[#b98d35]"
+                      ? "border-[#c9a24f] bg-[#f4e3bf] text-[#111111]"
                       : plan.key === "professional"
-                        ? "border-[#8a8a8a] bg-[#e8e8e8] text-[#111111]"
-                        : "border-[#0b0a08]/10 bg-[#efc959] text-[#0b0a08]",
+                        ? "border-[#7f7f7f] bg-[#efefef] text-[#111111]"
+                        : "border-[#8e6714] bg-[#efc959] text-[#0b0a08]",
                   ].join(" ")}
                 >
                   <Shield className="h-3.5 w-3.5" />
                   Verification ready
                 </span>
                 {plan.featured ? (
-                  <span className="rounded-full bg-[#f2f2f2] px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#111111]">
+                  <span className="rounded-full bg-[#d9b24b] px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#111111]">
                     Most popular
                   </span>
                 ) : null}
               </div>
 
               <h3 className="mt-4 min-h-[3.5rem] font-display text-3xl font-semibold">{plan.name}</h3>
-              <p className={["mt-2 text-sm leading-6", plan.key === "professional" ? "text-[#111111]/75" : plan.key === "starter" ? "text-[#b3ac99]" : "text-[#1c1a14]/75"].join(" ")}>
+              <p className={["mt-2 text-sm leading-6", plan.key === "professional" ? "text-[#111111]/75" : plan.key === "starter" ? "text-[#5d4a28]" : "text-[#1c1a14]/75"].join(" ")}>
                 {plan.tagline}
               </p>
 
-              <div className={["mt-6 min-h-[132px] rounded-2xl border p-4", plan.key === "starter" ? "border-[#2c2312] bg-black/15" : plan.key === "professional" ? "border-[#8f8f8f] bg-[#ececec]" : "border-[#c69322] bg-[#f0c44f]"].join(" ")}>
-                <div className={["text-[11px] uppercase tracking-[0.14em]", plan.key === "professional" ? "text-[#111111]/70" : plan.key === "starter" ? "text-[#82775f]" : "text-[#0b0a08]/70"].join(" ")}>
+              <div className={["mt-6 min-h-[132px] rounded-2xl border p-4", plan.key === "starter" ? "border-[#d8ba73] bg-[#fbf5e8]" : plan.key === "professional" ? "border-[#8f8f8f] bg-[#ececec]" : "border-[#c69322] bg-[#f0c44f]"].join(" ")}>
+                <div className={["text-[11px] uppercase tracking-[0.14em]", plan.key === "professional" ? "text-[#111111]/70" : plan.key === "starter" ? "text-[#9a814d]" : "text-[#0b0a08]/70"].join(" ")}>
                   Price
                 </div>
-                <div className={["mt-1 font-display text-4xl font-semibold leading-none", plan.key === "starter" ? "text-[#e7bb53]" : plan.key === "professional" ? "text-[#111111]" : "text-[#0b0a08]"].join(" ")}>
+                <div className={["mt-1 font-display text-4xl font-semibold leading-none", plan.key === "starter" ? "text-[#111111]" : plan.key === "professional" ? "text-[#111111]" : "text-[#0b0a08]"].join(" ")}>
                   {plan.price}
                 </div>
-                <div className={["mt-2 text-sm", plan.key === "professional" ? "text-[#111111]/75" : plan.key === "starter" ? "text-[#b3ac99]" : "text-[#0b0a08]/75"].join(" ")}>
+                <div className={["mt-2 text-sm", plan.key === "professional" ? "text-[#111111]/75" : plan.key === "starter" ? "text-[#5d4a28]" : "text-[#0b0a08]/75"].join(" ")}>
                   {plan.period}
                 </div>
               </div>
@@ -250,10 +253,10 @@ const Pricing = () => {
                   className={[
                     "mt-5 inline-flex w-full items-center justify-center rounded-xl border px-4 py-3 text-sm font-semibold transition-colors",
                     plan.key === "starter"
-                      ? "border-[#0b0a08] bg-[#0b0a08] text-[#f3cf7e] hover:bg-[#1c1a14] hover:text-[#f8e29b]"
+                      ? "border-[#111111] bg-[#111111] text-[#f7e0aa] hover:bg-[#1c1c1c] hover:text-[#f9e7bf]"
                       : plan.key === "professional"
                         ? "border-[#111111] bg-[#f2f2f2] text-[#111111] hover:bg-white"
-                        : "border-[#7d6122] bg-[#7d6122] text-[#0b0a08] hover:bg-[#0b0a08] hover:text-[#f3cf7e]",
+                        : "border-[#8e6714] bg-[#8e6714] text-[#0b0a08] hover:bg-[#a77a1d] hover:text-[#0b0a08]",
                   ].join(" ")}
                 >
                   {plan.cta}
@@ -263,10 +266,10 @@ const Pricing = () => {
                   className={[
                     "mt-5 w-full rounded-xl border px-4 py-3 text-sm font-semibold transition-colors",
                     plan.key === "starter"
-                      ? "border-[#0b0a08] bg-[#0b0a08] text-[#f3cf7e] hover:bg-[#1c1a14] hover:text-[#f8e29b]"
+                      ? "border-[#111111] bg-[#111111] text-[#f7e0aa] hover:bg-[#1c1c1c] hover:text-[#f9e7bf]"
                       : plan.key === "professional"
                         ? "border-[#111111] bg-[#f2f2f2] text-[#111111] hover:bg-white"
-                        : "border-[#7d6122] bg-transparent text-[#e7bb53] hover:bg-[#e7bb53] hover:text-[#0b0a08]",
+                        : "border-[#8e6714] bg-transparent text-[#7f5b12] hover:bg-[#e7bb53] hover:text-[#0b0a08]",
                   ].join(" ")}
                 >
                   {plan.cta}
@@ -277,9 +280,9 @@ const Pricing = () => {
                 {plan.bullets.map((bullet) => (
                   <li
                   key={bullet}
-                    className={["flex items-start gap-2 text-sm leading-6", plan.key === "professional" ? "text-[#111111]/80" : plan.key === "starter" ? "text-[#b3ac99]" : "text-[#0b0a08]/80"].join(" ")}
+                    className={["flex items-start gap-2 text-sm leading-6", plan.key === "professional" ? "text-[#111111]/80" : plan.key === "starter" ? "text-[#5d4a28]" : "text-[#0b0a08]/80"].join(" ")}
                   >
-                    <Check className={["mt-0.5 h-4 w-4 shrink-0", plan.key === "starter" ? "text-[#6fae6a]" : plan.key === "professional" ? "text-[#6b6b6b]" : "text-[#0b0a08]/70"].join(" ")} />
+                    <Check className={["mt-0.5 h-4 w-4 shrink-0", plan.key === "starter" ? "text-[#d2a74c]" : plan.key === "professional" ? "text-[#6b6b6b]" : "text-[#0b0a08]/70"].join(" ")} />
                     <span>{bullet}</span>
                   </li>
                 ))}

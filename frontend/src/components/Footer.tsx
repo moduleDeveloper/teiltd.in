@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 const setuLogo = "/proof/setuLogo.jpeg";
 import { legalInfo } from "@/lib/legal";
 
-const ADMIN_PANEL_URL = "https://admin-test.contractmitra.in/";
+const ADMIN_PANEL_URL = "https://admin-test.teiltd.in/login";
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">

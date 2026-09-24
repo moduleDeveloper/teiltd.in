@@ -1,145 +1,60 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import { fileURLToPath } from "url";
-import { dirname, resolve } from "path";
+import express from 'express';
+import path from 'node:path';
+import fs from 'node:fs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const PORT = Number(process.env.PORT) || 5000;
+const { CATALOG_API_URL, CATALOG_API_KEY, CATALOG_TRUST_ID } = process.env;
+/** Argument name of the get_products_by_trust_id function — change if your SQL function names it differently. */
+const TRUST_ID_PARAM = 'p_trust_id';
 
-dotenv.config({ path: resolve(__dirname, ".env") });
+const DIST_DIR = path.resolve(import.meta.dirname, '../frontend/dist');
 
 const app = express();
-const port = Number(process.env.PORT || 3001);
+app.disable('x-powered-by');
 
-const localOrigins = ["http://localhost:8080", "http://127.0.0.1:8080"];
-const allowedOrigins = (process.env.CORS_ORIGIN || process.env.FRONTEND_ORIGIN || "")
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
-const corsOrigins = [...new Set([...allowedOrigins, ...localOrigins])];
-
-app.use(
-  cors({
-    origin: corsOrigins.length > 0 ? corsOrigins : true,
-    credentials: true,
-  }),
-);
-app.use(express.json());
-
-const requiredEnv = ["MAIL_USER", "MAIL_APP_PASSWORD", "MAIL_TO"];
-const missing = requiredEnv.filter((name) => !process.env[name]);
-
-if (missing.length > 0) {
-  console.warn(`Missing env vars: ${missing.join(", ")}`);
-}
-
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const leadsTableUrl = supabaseUrl ? `${supabaseUrl.replace(/\/$/, "")}/rest/v1/leads` : null;
-
-const toLeadRow = (body) => {
-  const {
-    name = null,
-    mobile = null,
-    email = null,
-    org = null,
-    org_name = null,
-    source = null,
-    sourceDetail = null,
-    remark = null,
-  } = body ?? {};
-
-  return {
-    name: name || null,
-    mobile: mobile || null,
-    email: email || null,
-    org_name: org_name || org || null,
-    source: sourceDetail ? `${source || ""}${source ? " - " : ""}${sourceDetail}` : source || null,
-    remark: remark || null,
-  };
-};
-
-const saveLead = async (body) => {
-  if (!leadsTableUrl || !supabaseServiceKey) {
-    throw new Error("Supabase configuration is missing.");
-  }
-
-  const row = toLeadRow(body);
-  const headers = {
-    apikey: supabaseServiceKey,
-    Authorization: `Bearer ${supabaseServiceKey}`,
-    "Content-Type": "application/json",
-    Prefer: "return=representation",
-  };
-
-  const existingResponse = await fetch(`${leadsTableUrl}?mobile=eq.${encodeURIComponent(String(row.mobile))}&order=created_at.desc&limit=1`, {
-    headers,
-  });
-
-  if (!existingResponse.ok) {
-    throw new Error("Failed to look up existing lead");
-  }
-
-  const existingLeads = await existingResponse.json();
-  const existingLead = Array.isArray(existingLeads) ? existingLeads[0] : null;
-
-  if (existingLead?.id) {
-    const updateResponse = await fetch(`${leadsTableUrl}?id=eq.${existingLead.id}`, {
-      method: "PATCH",
-      headers,
-      body: JSON.stringify(row),
-    });
-
-    if (!updateResponse.ok) {
-      throw new Error("Failed to update lead");
-    }
-
-    return { action: "updated" };
-  }
-
-  const insertResponse = await fetch(leadsTableUrl, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      ...row,
-      status: "new",
-      lead_received_at: new Date().toISOString(),
-    }),
-  });
-
-  if (!insertResponse.ok) {
-    throw new Error("Failed to insert lead");
-  }
-
-  return { action: "inserted" };
-};
-
-app.get("/api/health", (_req, res) => {
+app.get('/api/health', (_req, res) => {
   res.json({ ok: true });
 });
 
-app.post("/api/book-demo", async (req, res) => {
-  const { name, org, mobile, email, remark, source, sourceDetail } = req.body ?? {};
-  const normalizedMobile = String(mobile ?? "").replace(/\D/g, "");
-
-  if (!/^[0-9]{10}$/.test(normalizedMobile)) {
-    return res.status(400).json({ error: "Mobile number must be exactly 10 digits." });
+/** The only call the proxy allows. The trust id is pinned here on the server and the
+ * client's request body is ignored, so callers cannot query other trusts with our key. */
+app.post('/api/catalog', async (_req, res) => {
+  if (!CATALOG_API_URL || !CATALOG_API_KEY || !CATALOG_TRUST_ID) {
+    res.status(500).json({ error: 'Catalog API is not configured on the server.' });
+    return;
   }
-
   try {
-    const dbResult = await saveLead({ name, org, mobile: normalizedMobile, email, remark, source, sourceDetail });
-    return res.status(200).json({
-      ok: true,
-      message: "We have received your request. Our team will contact you shortly.",
-      db: dbResult,
+    const upstream = await fetch(CATALOG_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        // Supabase expects the anon key in both `apikey` and `Authorization`.
+        apikey: CATALOG_API_KEY,
+        Authorization: `Bearer ${CATALOG_API_KEY}`,
+      },
+      body: JSON.stringify({ [TRUST_ID_PARAM]: CATALOG_TRUST_ID }),
+      signal: AbortSignal.timeout(10_000),
     });
-  } catch (error) {
-    console.error("Lead save failed:", error);
-    return res.status(500).json({ error: "Failed to save lead." });
+    res.status(upstream.status).type('application/json').send(await upstream.text());
+  } catch (err) {
+    console.error('Catalog request failed:', err);
+    res.status(502).json({ error: 'Catalog service unavailable.' });
   }
 });
 
-app.listen(port, () => {
-  console.log(`Email backend running on http://localhost:${port}`);
+app.use('/api', (_req, res) => {
+  res.status(404).json({ error: 'Not found' });
+});
+
+// In production the same server also serves the built frontend (single deployable).
+if (fs.existsSync(DIST_DIR)) {
+  app.use(express.static(DIST_DIR));
+  app.get('/{*splat}', (_req, res) => {
+    res.sendFile(path.join(DIST_DIR, 'index.html'));
+  });
+}
+
+app.listen(PORT, () => {
+  console.log(`Backend listening on http://localhost:${PORT}`);
 });

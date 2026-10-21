@@ -1,0 +1,10 @@
+export { default as AppInTwoMinutes } from './AppInTwoMinutes';
+export { default as AboutSection } from './AboutSection';
+export { default as HeroSection } from './HeroSection';
+export { default as Solution } from './Solution';
+export { default as AiHuman } from './AiHuman';
+export { default as OwnerTest } from './OwnerTest';
+export { default as SolutionsSection } from './SolutionsSection';
+export { default as LivePlatformsSection } from './LivePlatformsSection';
+export { default as PlansSection } from './PlansSection';
+export { default as LaunchAppSection } from './LaunchAppSection';

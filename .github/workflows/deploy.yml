@@ -1,0 +1,37 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          VITE_CATALOG_ENDPOINT: /api/catalog
+          VITE_FEATURED_PRODUCT_CODE: ${{ vars.VITE_FEATURED_PRODUCT_CODE }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
+
+  # TODO: add the deploy step for your host once it is decided. The backend serves
+  # frontend/dist itself, so any Node host works: run `npm ci && npm run build && npm start`
+  # with CATALOG_API_URL, CATALOG_API_KEY and CATALOG_TRUST_ID set as secrets.

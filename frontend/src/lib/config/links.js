@@ -6,7 +6,7 @@ export const EXTERNAL_LINKS = {
   login: 'https://teiltd.in/app-download',
   userLogin: 'https://user-test.teiltd.in/auth/login',
   /** Hero "Try Now" button only. */
-  heroTryNow: 'https://app-test.teiltd.in/',
+  heroTryNow: 'https://teiltd.in/app-download',
   investorPanel: 'https://investors.teiltd.in/login',
   appDownload: 'https://teiltd.in/app-download',
   whatsappChat: 'https://api.whatsapp.com/send?phone=918447247138',
